@@ -1,0 +1,17 @@
+version: '2'
+services:
+  app:
+    build: .
+    environment:
+      NODE_ENV: development
+    command: node_modules/.bin/nodemon --exec npm start
+    ports:
+      - '9000:9000'
+    tty: true
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/usr/app
+      - /usr/usr/app/node_modules
+  mongodb:
+    image: mongo:3.2.5
