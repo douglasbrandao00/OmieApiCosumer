@@ -1,38 +1,20 @@
-const request = require('request');
-const mongo = require('mongodb').MongoClient;
+const request = require('request-promise');
 
-let getData = (number, appKey, appSecret) => {
-    request.post({
-        url:'http://app.omie.com.br/api/v1/financas/contareceber/',
-        method: "POST",
-        json: true,
-        body: {
-            "call":"ListarContasReceber",
-            "app_key": appKey,
-            "app_secret": appSecret,
-            "param":
-            [
-                {
-                "pagina": number,
-                "registros_por_pagina": 1,
-                }
-            ]
-        }
-    }, function optionalCallback(err, httpResponse, body) {
-        if (err) return console.log('error!!');
-        if (httpResponse.statusCode === 200) {
-                body.conta_receber_cadastro.forEach(iten => {
-                  console.log({
-                    app_key: appKey,
-                    app_secret: appSecret,
-                    iten: iten.distribicao
-                  })
-                })
-        }
-    });
+const mock_customers = require('../models/mock_customers')
+const requestBody = require('./requestBody/bodyTipe1')
 
-    
-};
+request(
+  requestBody(
+    "http://app.omie.com.br/api/v1/financas/contareceber/",
+    "ListarContasReceber",
+    mock_customers[0].appKey,
+    mock_customers[0].appSecret,
+    1,
+    50
+  ))
+  .then(result => result.total_de_paginas)
+  .then(result2 => console.log(result2))
+  .catch(err => console.error(err))
 
-getData(1, 2329251405, "ba709ff552af361ab5be06afab116601")
+
 
