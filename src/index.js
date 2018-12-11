@@ -28,16 +28,15 @@ const getTotalPages = async () => {
 
 const request = async (totalPages) => {
   //const totalPages = await getTotalPages()
+  if(totalPages === 0) return
   const newParamsBody = R.merge(paramsBody.param[0], {'pagina': totalPages})
   const paramToArray = R.append(newParamsBody, [])
   const newBody = R.merge(paramsBody, {'param': newParamsBody})
   const newOptions = R.merge(options, {'body': newBody})
-    /*
-  const reqLastPage = await rp(newOptions)
-  console.log('at params\n',newParamsBody)
-  console.log('at bd \n',newBody)
-  console.log('at opt\n',newOptions)*/
+  
   console.log(paramToArray)
+
+  request(--totalPages)
 }
 
 request(3)
