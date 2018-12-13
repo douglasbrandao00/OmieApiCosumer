@@ -6,4 +6,14 @@ module.exports = [{
     'ListarCategorias',
     'PesquisarLancamentos'
   ]
-}]
+},
+{
+  app_name: 'MG SERVIÇOS CONTÁBEIS ',
+  app_key:'7995317091',
+  app_secret:'6f16183fb1e833d72392d7369c7b0055',
+  services: [
+    'ListarContasCorrentes',
+    'ListarCadastroServico'
+  ]
+}
+]
