@@ -23,7 +23,7 @@ const getTotalPages = async reqObj => {
 }
 
 const request = async (totalPages) => {
-  if(totalPages == 0 || undefined) return
+  if(totalPages == 0) return
   //const newParamsBody = R.merge(paramsBody.param[0], {'pagina': totalPages})
   // const paramToArray = R.append(newParamsBody, [])
   //nst newBody = R.merge(reqObj.body, {'param': newParamsBody})
@@ -34,13 +34,23 @@ const request = async (totalPages) => {
   request(--totalPages)
 }
 
-request( 1)
-  /*
 const makeRequest = async reqObj => {
   const totalPages = await getTotalPages(reqObj)
   const requestData = await request(reqObj, 1)
   console.log(`${reqObj.body.call} - ${totalPages}`)
+  
+  const request = async (totalPages) => {
+  if(totalPages == 0) return
+  const newParamsBody = R.merge(paramsBody.param[0], {'pagina': totalPages})
+  const paramToArray = R.append(newParamsBody, [])
+  const newBody = R.merge(reqObj.body, {'param': newParamsBody})
+  const newOptions = R.merge(options, {'body': newBody})
+  
+  //console.log('Reqs>>', newParamsBody)
+
+  request(--totalPages)
+}
 }
 
+
 const requests = R.map(makeRequest, apiConfig)
-*/
